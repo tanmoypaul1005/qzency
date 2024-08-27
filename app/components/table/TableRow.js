@@ -1,4 +1,4 @@
-import { iPast } from '@/util/imageImports';
+import { iOption, iPast } from '@/util/imageImports';
 import Image from 'next/image';
 import React from 'react';
 
@@ -37,9 +37,7 @@ const TableRow = ({ orderId, date, customerInfo, total, quantity, paymentStatus,
         </span>
       </td>
       <td className="px-6 py-3 text-right">
-        <button className="text-gray-600 hover:text-gray-900">
-          <i className="fas fa-ellipsis-h"></i>
-        </button>
+       <Image src={iOption} alt="phone"  />
       </td>
     </tr>
   );
