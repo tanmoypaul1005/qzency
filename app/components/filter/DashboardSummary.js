@@ -25,20 +25,21 @@ const DashboardSummary = ({ totalRevenue, orderItems, returnItems, fulfilledOrde
                     {startDate ? format(startDate, 'MM/dd/yyyy') : ''}
                 </span>
             </div>
-            <div className="grid w-full grid-cols-2 gap-6 md:gap-10 md:grid-cols-4">
-                <div className="flex flex-col items-center">
+            {/* px-6 py-2.5 */}
+            <div className="grid w-full border-[1px] border-[#EAECF0] rounded-lg  grid-cols-2 gap-6 md:gap-10 md:grid-cols-4">
+                <div className="flex flex-col py-2.5 items-start ml-10 border-r-[1px] border-[#EAECF0]">
                     <span className="text-sm text-gray-500">Total Revenue</span>
                     <span className="text-xl font-semibold text-gray-800">${totalRevenue}</span>
                 </div>
-                <div className="flex flex-col items-center">
+                <div className="flex flex-col py-2.5 items-start  border-r-[1px] border-[#EAECF0]">
                     <span className="text-sm text-gray-500">Order Items</span>
                     <span className="text-xl font-semibold text-gray-800">{orderItems}</span>
                 </div>
-                <div className="flex flex-col items-center">
+                <div className="flex flex-col py-2.5 items-start border-r-[1px] border-[#EAECF0]">
                     <span className="text-sm text-gray-500">Return Items</span>
                     <span className="text-xl font-semibold text-gray-800">{returnItems}</span>
                 </div>
-                <div className="flex flex-col items-center">
+                <div className="flex flex-col py-2.5 items-start border-r-[1px] border-[#EAECF0]">
                     <span className="text-sm text-gray-500">Fulfilled Orders</span>
                     <span className="text-xl font-semibold text-gray-800">{fulfilledOrders}</span>
                 </div>
