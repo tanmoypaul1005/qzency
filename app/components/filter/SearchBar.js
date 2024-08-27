@@ -2,7 +2,7 @@ import React from 'react';
 
 const SearchBar = ({ placeholder }) => {
   return (
-    <div className="flex items-center px-4 py-2 bg-white border rounded-full">
+    <div className="flex items-center px-4 py-2 bg-white border rounded-md">
       <input
         type="text"
         placeholder={placeholder}
