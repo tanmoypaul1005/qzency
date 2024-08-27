@@ -2,6 +2,7 @@ import React from 'react';
 import Table from './components/table/Table';
 import TableRow from './components/table/TableRow';
 import Filters from './components/filter/Filters';
+import DashboardSummary from './components/filter/DashboardSummary';
 
 function App() {
   const orders = [
@@ -30,8 +31,17 @@ function App() {
 
   return (
     <div className="px-6 py-4 ">
-            <Filters />
 
+        <DashboardSummary
+          totalRevenue="12,084"
+          orderItems={184}
+          returnItems={12}
+          fulfilledOrders={84}
+        />
+
+      <div className="my-4">
+      <Filters />
+      </div>
       <Table>
         {orders.map((order, index) => (
           <TableRow key={index} {...order} />
