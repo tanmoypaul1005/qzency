@@ -1,0 +1,1 @@
+export { default as iPast } from "../public/icon/past.svg";
