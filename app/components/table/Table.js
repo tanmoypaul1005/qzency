@@ -5,7 +5,7 @@ const Table = ({ children }) => {
     <div className="overflow-x-auto">
       <table className="min-w-full bg-white">
         <thead>
-          <tr className="text-sm leading-normal text-left text-gray-600 uppercase bg-gray-200">
+          <tr className="text-xs font-[550] leading-4 text-left text-[#05060F99] bg-[#F9FAFB]">
             <th className="px-6 py-3">Order Id</th>
             <th className="px-6 py-3">Creating date</th>
             <th className="px-6 py-3">Customer info</th>
