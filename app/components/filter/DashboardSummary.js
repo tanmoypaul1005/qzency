@@ -11,6 +11,13 @@ const DashboardSummary = ({ totalRevenue, orderItems, returnItems, fulfilledOrde
         setStartDate(date);
     };
 
+    const summaryData = [
+        { label: 'Total Revenue', value: `$${totalRevenue}` },
+        { label: 'Order Items', value: orderItems },
+        { label: 'Return Items', value: returnItems },
+        { label: 'Fulfilled Orders', value: fulfilledOrders },
+    ];
+
     return (
         <div className="flex flex-col items-center justify-between w-full pb-6 mx-auto space-y-6 border-b-2 border-[#EAECF0] md:flex-row md:space-y-0 md:space-x-8">
             <div className="relative flex items-center">
@@ -25,25 +32,15 @@ const DashboardSummary = ({ totalRevenue, orderItems, returnItems, fulfilledOrde
                     {startDate ? format(startDate, 'MM/dd/yyyy') : ''}
                 </span>
             </div>
-            {/* px-6 py-2.5 */}
-            <div className="grid w-full border-[1px] border-[#EAECF0] rounded-lg  grid-cols-2 gap-6 md:gap-10 md:grid-cols-4">
-                <div className="flex flex-col py-2.5 items-start ml-10 border-r-[1px] border-[#EAECF0]">
-                    <span className="text-sm text-gray-500">Total Revenue</span>
-                    <span className="text-xl font-semibold text-gray-800">${totalRevenue}</span>
+            
+            <div className="grid w-full border border-[#EAECF0] rounded-lg grid-cols-2 md:grid-cols-4">
+            {summaryData.map((item, index) => (
+                <div key={index} className={`flex flex-col ml-5 py-2.5 items-start ${index !== summaryData.length - 1 ? 'border-r border-[#EAECF0]' : ''}`}>
+                    <span className="text-sm font-medium text-gray-500">{item.label}</span>
+                    <span className="text-base font-bold text-gray-[#323232]">{item.value}</span>
                 </div>
-                <div className="flex flex-col py-2.5 items-start  border-r-[1px] border-[#EAECF0]">
-                    <span className="text-sm text-gray-500">Order Items</span>
-                    <span className="text-xl font-semibold text-gray-800">{orderItems}</span>
-                </div>
-                <div className="flex flex-col py-2.5 items-start border-r-[1px] border-[#EAECF0]">
-                    <span className="text-sm text-gray-500">Return Items</span>
-                    <span className="text-xl font-semibold text-gray-800">{returnItems}</span>
-                </div>
-                <div className="flex flex-col py-2.5 items-start border-r-[1px] border-[#EAECF0]">
-                    <span className="text-sm text-gray-500">Fulfilled Orders</span>
-                    <span className="text-xl font-semibold text-gray-800">{fulfilledOrders}</span>
-                </div>
-            </div>
+            ))}
+        </div>
         </div>
     );
 };
