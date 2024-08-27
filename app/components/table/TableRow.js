@@ -5,12 +5,14 @@ import React from 'react';
 const TableRow = ({ orderId, date, customerInfo, total, quantity, paymentStatus, deliveryMethod, status }) => {
   return (
     <tr className="border-b border-gray-200 hover:bg-gray-100">
-      <td className="px-6 py-3">{orderId}</td>
+      <td className="flex px-6 py-3 gap-x-2">
+        <div>{orderId}</div>
+        <Image src={iPast} alt="phone" width={20} height={20} />
+      </td>
       <td className="px-6 py-3">{date}</td>
       <td className="px-6 py-3 space-y-1">
         <div className="text-sm font-normal leading-5 text-[#667085]">Safayet hossain</div>
         <div className="flex gap-x-2">
-
         <div className="text-sm font-normal leading-5 text-[#E46A11]">
           01854883320
         </div>
