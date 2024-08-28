@@ -1,20 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { iOption, iCopy } from '@/util/imageImports';
+import { iOption  } from '@/util/imageImports';
 import { formatDate } from '@/util/utilityFunction';
 import Image from 'next/image';
 import CopyToClipboard from '../CopyToClipboard';
+import Checkbox from './Checkbox';
 
-const TableRow = ({ _id, createdAt, user, payment, totalAmount, shipping, products, delivery, status }) => {
+const TableRow = ({ _id, createdAt, user, payment, totalAmount,selectedOrder, shipping, products, delivery, status }) => {
+  const selected = selectedOrder?.includes(_id?.$oid);
   return (
-    <tr className="border-b border-gray-200 hover:bg-gray-100">
+    <tr className={`border-b border-gray-200 ${selected && "bg-gray-100"} hover:bg-gray-100`}>
       <td className="px-6 py-3">
         <div className="flex gap-x-2">
-          <input
-            type="checkbox"
-            id="processing"
-            className=""
-          />
+          <Checkbox id={_id?.$oid}/>
           <div className="table-row">{_id?.$oid}</div>
           <CopyToClipboard content={_id?.$oid}/>
         </div>

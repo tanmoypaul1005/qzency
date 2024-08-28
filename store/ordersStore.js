@@ -7,6 +7,9 @@ export const useOrderStore = create((set) => ({
     ordersList: orders,
     setOrderList: (value) => set({ ordersList: value }),
 
+    selectedOrder: [],
+    setSelectedOrder: (value) => set({ selectedOrder: value }),
+
     tampOrdersList: orders,
     setTampOrdersListList: (value) => set({ tampOrdersList: value }),
 

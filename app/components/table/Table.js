@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import TableRow from './TableRow';
 import TableHeader from './TableHeader';
 import Image from "next/image";
@@ -9,7 +9,9 @@ import { useOrderStore } from "@/store/ordersStore";
 const Table = () => {
 
   const [currentPage, setCurrentPage] = useState(1);
-  const { ordersList }= useOrderStore();
+
+  const { ordersList,selectedOrder }= useOrderStore();
+  
   const itemsPerPage = 10;
 
   const totalPages = Math.ceil(ordersList?.length / itemsPerPage);
@@ -58,14 +60,13 @@ const Table = () => {
     return pageNumbers;
   };
 
-
   return (
     <div className="overflow-x-auto">
       <table className="min-w-full bg-white">
         <TableHeader />
         <tbody className="text-sm text-gray-600">
           {paginatedOrders?.map((order, index) => (
-            <TableRow key={index} {...order} />
+            <TableRow selectedOrder={selectedOrder} key={index} {...order} />
           ))}
         </tbody>
       </table>
