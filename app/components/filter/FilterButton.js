@@ -5,7 +5,7 @@ import Image from 'next/image';
 import React, { useState } from 'react';
 
 const FilterButton = () => {
-    const { tampOrdersList, setOrderList,setSelectDate } = useOrderStore();
+    const { tampOrdersList,setSelectFilter, setOrderList,setSelectDate } = useOrderStore();
 
     const [isOpen, setIsOpen] = useState(false);
     const [selectedDateRange, setSelectedDateRange] = useState('');
@@ -73,6 +73,7 @@ const FilterButton = () => {
 
         setOrderList(filteredOrders);setSelectDate
         setSelectDate(null);
+        setSelectFilter(null)
         setIsOpen(false);
     };
 

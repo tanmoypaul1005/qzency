@@ -4,7 +4,6 @@ import React, { useState, useEffect } from 'react';
 import FilterButton from './FilterButton';
 import SearchBar from './SearchBar';
 import FilterBox from './FilterBox';
-import ordersData from "../../../data/orders.json";
 import { useOrderStore } from '@/store/ordersStore';
 
 const Filters = () => {
@@ -30,44 +29,63 @@ const Filters = () => {
         'Refunded': 'Return',
         'Cancel': 'Cancel'
     };
-
+    let filtered;
+    if (selectDate) {
+        filtered = tampOrdersList.filter(order => {
+            const orderDate = new Date(order?.createdAt?.$date);
+            return orderDate?.toDateString() === selectDate?.toDateString();
+        });
+    }else{
+        filtered= tampOrdersList
+    }
   
     useEffect(() => {
-        setFilters([
-            { label: 'All orders', count:ordersList?.length?? 0 , active: true },
-            { label: 'Processing', count: ordersList?.filter((i)=>i?.status===statusMap.Processing)?.length ?? 0, active: false },
-            { label: 'Confirmed', count: ordersList?.filter((i)=>i?.status===statusMap.Confirmed)?.length ?? 0, active: false },
-            { label: 'Shipping', count: ordersList?.filter((i)=>i?.status===statusMap?.Shipped)?.length ?? 0, active: false },
-            { label: 'Delivered', count: ordersList?.filter((i)=>i?.status===statusMap.Delivered)?.length ?? 0, active: false },
-            { label: 'Return', count: ordersList?.filter((i)=>i?.status===statusMap.Refunded)?.length ?? 0, active: false },
-            { label: 'Cancel', count: ordersList?.filter((i)=>i?.status===statusMap.Cancel)?.length ?? 0, active: false }, 
-        ])
+        if(selectDate && selectFilter === null){
+            setFilters([
+                { label: 'All orders', count:ordersList?.length?? 0 , active: true },
+                { label: 'Processing', count: ordersList?.filter((i)=>i?.status===statusMap.Processing)?.length ?? 0, active: false },
+                { label: 'Confirmed', count: ordersList?.filter((i)=>i?.status===statusMap.Confirmed)?.length ?? 0, active: false },
+                { label: 'Shipping', count: ordersList?.filter((i)=>i?.status===statusMap?.Shipped)?.length ?? 0, active: false },
+                { label: 'Delivered', count: ordersList?.filter((i)=>i?.status===statusMap.Delivered)?.length ?? 0, active: false },
+                { label: 'Return', count: ordersList?.filter((i)=>i?.status===statusMap.Refunded)?.length ?? 0, active: false },
+                { label: 'Cancel', count: ordersList?.filter((i)=>i?.status===statusMap.Cancel)?.length ?? 0, active: false }, 
+            ])
+        }else if(selectDate=== null  && selectFilter === null){
+            setFilters([
+                { label: 'All orders', count:ordersList?.length?? 0 , active: true },
+                { label: 'Processing', count: ordersList?.filter((i)=>i?.status===statusMap.Processing)?.length ?? 0, active: false },
+                { label: 'Confirmed', count: ordersList?.filter((i)=>i?.status===statusMap.Confirmed)?.length ?? 0, active: false },
+                { label: 'Shipping', count: ordersList?.filter((i)=>i?.status===statusMap?.Shipped)?.length ?? 0, active: false },
+                { label: 'Delivered', count: ordersList?.filter((i)=>i?.status===statusMap.Delivered)?.length ?? 0, active: false },
+                { label: 'Return', count: ordersList.filter((i)=>i?.status===statusMap.Refunded)?.length ?? 0, active: false },
+                { label: 'Cancel', count: ordersList?.filter((i)=>i?.status===statusMap.Cancel)?.length ?? 0, active: false }, 
+            ])
+        }else {
+            setFilters([
+                { label: 'All orders', count:filtered?.length?? 0 , active: true },
+                { label: 'Processing', count: filtered?.filter((i)=>i?.status===statusMap.Processing)?.length ?? 0, active: false },
+                { label: 'Confirmed', count: filtered?.filter((i)=>i?.status===statusMap.Confirmed)?.length ?? 0, active: false },
+                { label: 'Shipping', count: filtered?.filter((i)=>i?.status===statusMap?.Shipped)?.length ?? 0, active: false },
+                { label: 'Delivered', count: filtered?.filter((i)=>i?.status===statusMap.Delivered)?.length ?? 0, active: false },
+                { label: 'Return', count: filtered.filter((i)=>i?.status===statusMap.Refunded)?.length ?? 0, active: false },
+                { label: 'Cancel', count: filtered?.filter((i)=>i?.status===statusMap.Cancel)?.length ?? 0, active: false }, 
+            ])
+        }
+  
     }, [ordersList,selectDate]); // Empty dependency array ensures this runs only once on mount
 
     const handleFilterClick = (label) => {
         setSelectFilter(label);
-        if (selectDate) {
-            const filtered = tampOrdersList.filter(order => {
-                const orderDate = new Date(order?.createdAt?.$date);
-                return orderDate?.toDateString() === selectDate?.toDateString();
-            });
-
-            setOrderList(filtered);
-        } else {
-            setOrderList(tampOrdersList);
-        }
-        const updatedFilters = filters.map(filter => ({
-            ...filter,
-            active: filter.label === label
-        }));
-
-        setFilters(updatedFilters);
-
         // Filter the orders based on the selected filter
-        if (label === 'All orders') {
-            setOrderList(ordersData);
+        if ( label === 'All orders') {
+            if(selectDate === null){
+                setOrderList(ordersList);
+            }else{
+
+                setOrderList(filtered);
+            }
         } else {
-            const filteredOrders = ordersList.filter(order => statusMap[order.status] === label);
+            const filteredOrders = filtered?.filter(order => statusMap[order.status] === label);
             setOrderList(filteredOrders);
         }
     };
