@@ -28,9 +28,9 @@ const DashboardSummary = ({ totalRevenue, orderItems, returnItems, fulfilledOrde
                     dateFormat="MM/dd/yyyy"
                     className="px-4 py-2 text-gray-700 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
-                <span className="ml-2 text-gray-600">
+                {/* <span className="ml-2 text-gray-600">
                     {startDate ? format(startDate, 'MM/dd/yyyy') : ''}
-                </span>
+                </span> */}
             </div>
             
             <div className="grid w-full border border-[#EAECF0] rounded-lg grid-cols-2 md:grid-cols-4">

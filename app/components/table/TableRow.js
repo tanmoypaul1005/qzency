@@ -4,7 +4,7 @@ import { iOption, iPast } from '@/util/imageImports';
 import { formatDate } from '@/util/utilityFunction';
 import Image from 'next/image';
 
-const TableRow = ({ _id, createdAt, user, payment, totalAmount, products, delivery, status }) => {
+const TableRow = ({ _id, createdAt, user, payment, totalAmount,shipping, products, delivery, status }) => {
   return (
     <tr className="border-b border-gray-200 hover:bg-gray-100">
       <td className="px-6 py-3">
@@ -24,7 +24,7 @@ const TableRow = ({ _id, createdAt, user, payment, totalAmount, products, delive
           </div>
           <Image src={iPast} alt="phone" width={20} height={20} />
         </div>
-        <div className="text-sm font-normal leading-5 text-[#667085]">DOHS Mirpur 12, Dhaka</div>
+        <div className="text-sm font-normal leading-5 text-[#667085]">{shipping?.address}</div>
       </td>
       <td className="px-6 py-3">{totalAmount?.grandTotal}</td>
       <td className="px-6 py-3">{products?.length ?? 0}</td>
