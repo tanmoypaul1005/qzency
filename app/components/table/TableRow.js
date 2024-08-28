@@ -24,7 +24,7 @@ const TableRow = ({ _id, createdAt, user, payment, totalAmount, shipping, produc
         </div>
       </td>
       <td className="px-6 py-3 space-y-1">
-        <div className="text-sm table-row font-normal leading-5 text-[#667085]">
+        <div className="table-row">
           {user?.firstName} {user?.lastName}
         </div>
         <div className="flex gap-x-2">

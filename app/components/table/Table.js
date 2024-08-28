@@ -1,19 +1,20 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import orders from "../../../data/orders.json"
 import TableRow from './TableRow';
 import TableHeader from './TableHeader';
 import Image from "next/image";
 import { iArrowLeft, iArrowRight } from "@/util/imageImports";
+import { useOrderStore } from "@/store/ordersStore";
 
 const Table = () => {
 
   const [currentPage, setCurrentPage] = useState(1);
+  const { ordersList }= useOrderStore();
   const itemsPerPage = 10;
 
-  const totalPages = Math.ceil(orders.length / itemsPerPage);
+  const totalPages = Math.ceil(ordersList?.length / itemsPerPage);
 
-  const paginatedOrders = orders.slice(
+  const paginatedOrders = ordersList?.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
