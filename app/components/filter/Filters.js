@@ -8,11 +8,13 @@ import ordersData from "../../../data/orders.json";
 import { useOrderStore } from '@/store/ordersStore';
 
 const Filters = () => {
-    const { ordersList, setOrderList } = useOrderStore();
+
+    const {selectDate, ordersList, setOrderList } = useOrderStore();
+    console.log("ordersList",ordersList)
 
     // Initialize state with an empty array to prevent mismatches
     const [filters, setFilters] = useState([
-        { label: 'All orders', count: 0, active: true },
+        { label: 'All orders', count:ordersList?.length?? 0 , active: true },
         { label: 'Processing', count: 0, active: false },
         { label: 'Confirmed', count: 0, active: false },
         { label: 'Shipping', count: 0, active: false },
@@ -30,23 +32,18 @@ const Filters = () => {
         'Cancel': 'Cancel'
     };
 
-    // Use useEffect to ensure this runs only on the client side
+  
     useEffect(() => {
-        const newFilters = filters.map(filter => ({ ...filter })); // Create a copy
-
-        ordersList?.forEach(order => {
-            newFilters[0].count++; // Increment 'All orders' count
-            const status = order.status;
-            if (statusMap[status]) {
-                const filter = newFilters.find(f => f.label === statusMap[status]);
-                if (filter) {
-                    filter.count++;
-                }
-            }
-        });
-
-        setFilters(newFilters);
-    }, [ordersList]); // Empty dependency array ensures this runs only once on mount
+        setFilters([
+            { label: 'All orders', count:ordersList?.length?? 0 , active: true },
+            { label: 'Processing', count: ordersList?.filter((i)=>i?.status===statusMap.Processing)?.length ?? 0, active: false },
+            { label: 'Confirmed', count: ordersList?.filter((i)=>i?.status===statusMap.Confirmed)?.length ?? 0, active: false },
+            { label: 'Shipping', count: ordersList?.filter((i)=>i?.status===statusMap?.Shipped)?.length ?? 0, active: false },
+            { label: 'Delivered', count: ordersList?.filter((i)=>i?.status===statusMap.Delivered)?.length ?? 0, active: false },
+            { label: 'Return', count: ordersList?.filter((i)=>i?.status===statusMap.Refunded)?.length ?? 0, active: false },
+            { label: 'Cancel', count: ordersList?.filter((i)=>i?.status===statusMap.Cancel)?.length ?? 0, active: false }, 
+        ])
+    }, [ordersList,selectDate]); // Empty dependency array ensures this runs only once on mount
 
     const handleFilterClick = (label) => {
         const updatedFilters = filters.map(filter => ({
