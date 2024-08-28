@@ -10,8 +10,8 @@ const Header = () => {
             <Image src={iNotification} alt="" />
             <Image src={iAvatar} alt="" />
         </div>
-            <div className="flex justify-between py-3">
-                <div className="text-[22px] font-medium leading-6 text-[#0E1521]">Orders</div>
+            <div className="flex justify-between py-3 mx-6">
+                <div className="text-[22px] flex justify-center items-center font-medium leading-6 text-[#0E1521]">Orders</div>
                 <div className="flex space-x-2.5">
                     <Image src={iExportButton} alt="phone" />
                     <button className="bg-[#2166F0] py-3 px-4 rounded-md flex space-x-1.5">

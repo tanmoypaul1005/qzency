@@ -13,7 +13,7 @@ const TableRow = ({ _id, createdAt, user, payment, totalAmount, products, delive
           <Image src={iPast} alt="phone" width={20} height={20} />
         </div>
       </td>
-      <td className="px-6 py-3">{formatDate(createdAt?.$date)}</td>
+      <td className="px-6 py-3 whitespace-nowrap">{formatDate(createdAt?.$date)}</td>
       <td className="px-6 py-3 space-y-1">
         <div className="text-sm font-normal leading-5 text-[#667085]">
           {user?.firstName} {user?.lastName}
