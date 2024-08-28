@@ -8,7 +8,7 @@ import { BiSearch } from "react-icons/bi";
 
 const SearchBar = ({ placeholder }) => {
   
-  const { tampOrdersList, setOrderList,searchQuery, setSearchQuery } = useOrderStore();
+  const { tampOrdersList, selectDate,setOrderList,searchQuery, setSearchQuery } = useOrderStore();
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -20,8 +20,15 @@ const SearchBar = ({ placeholder }) => {
 
   const handleInputChange = (query) => {
     setIsLoading(true);
-    
-    const filteredOrders = tampOrdersList?.filter(order => {
+    let filtered = tampOrdersList;
+    if (selectDate) {
+      filtered = filtered?.filter(order => {
+          const orderDate = new Date(order?.createdAt?.$date);
+          return orderDate?.toDateString() === new Date(selectDate)?.toDateString();
+      });
+  }
+
+     filtered = filtered?.filter(order => {
       const fullName = `${order.user.firstName} ${order.user.lastName}`.toLowerCase();
       const email = order.user.email.toLowerCase();
       const phone = order.user.phone.toLowerCase();
@@ -35,7 +42,7 @@ const SearchBar = ({ placeholder }) => {
       );
     });
 
-    setOrderList(filteredOrders);
+    setOrderList(filtered);
     setTimeout(() => {
       
       setIsLoading(false);
