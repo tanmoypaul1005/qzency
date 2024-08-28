@@ -8,7 +8,7 @@ import { useOrderStore } from '@/store/ordersStore';
 
 const Filters = () => {
 
-    const {selectDate,tampOrdersList, selectFilter,setSelectFilter,ordersList, setOrderList } = useOrderStore();
+    const {selectDate,searchQuery,tampOrdersList, selectFilter,setSelectFilter,ordersList, setOrderList } = useOrderStore();
 
     // Initialize state with an empty array to prevent mismatches
     const [filters, setFilters] = useState([
@@ -29,14 +29,29 @@ const Filters = () => {
         'Refunded': 'Return',
         'Cancel': 'Cancel'
     };
-    let filtered;
+    let filtered = tampOrdersList;
     if (selectDate) {
         filtered = tampOrdersList.filter(order => {
             const orderDate = new Date(order?.createdAt?.$date);
             return orderDate?.toDateString() === selectDate?.toDateString();
         });
-    }else{
-        filtered= tampOrdersList
+    } else if (searchQuery) {
+        filtered =  filtered?.filter(order => {
+            const fullName = `${order.user?.firstName} ${order.user.lastName}`.toLowerCase();
+            const email = order?.user?.email?.toLowerCase();
+            const phone = order?.user?.phone?.toLowerCase();
+            const orderId = order?._id?.$oid?.toLowerCase();
+      
+            return (
+              fullName?.includes(searchQuery?.toLowerCase()) ||
+              email?.includes(searchQuery?.toLowerCase()) ||
+              phone?.includes(searchQuery?.toLowerCase()) ||
+              orderId?.includes(searchQuery?.toLowerCase())
+            );
+          });
+    }
+    else {
+        filtered= tampOrdersList;
     }
   
     useEffect(() => {
@@ -45,7 +60,7 @@ const Filters = () => {
                 { label: 'All orders', count:ordersList?.length?? 0 , active: true },
                 { label: 'Processing', count: ordersList?.filter((i)=>i?.status===statusMap.Processing)?.length ?? 0, active: false },
                 { label: 'Confirmed', count: ordersList?.filter((i)=>i?.status===statusMap.Confirmed)?.length ?? 0, active: false },
-                { label: 'Shipping', count: ordersList?.filter((i)=>i?.status===statusMap?.Shipped)?.length ?? 0, active: false },
+                { label: 'Shipping', count: ordersList?.filter((i)=>i?.status=== "Shipped")?.length ?? 0, active: false },
                 { label: 'Delivered', count: ordersList?.filter((i)=>i?.status===statusMap.Delivered)?.length ?? 0, active: false },
                 { label: 'Return', count: ordersList?.filter((i)=>i?.status===statusMap.Refunded)?.length ?? 0, active: false },
                 { label: 'Cancel', count: ordersList?.filter((i)=>i?.status===statusMap.Cancel)?.length ?? 0, active: false }, 
@@ -55,7 +70,7 @@ const Filters = () => {
                 { label: 'All orders', count:ordersList?.length?? 0 , active: true },
                 { label: 'Processing', count: ordersList?.filter((i)=>i?.status===statusMap.Processing)?.length ?? 0, active: false },
                 { label: 'Confirmed', count: ordersList?.filter((i)=>i?.status===statusMap.Confirmed)?.length ?? 0, active: false },
-                { label: 'Shipping', count: ordersList?.filter((i)=>i?.status===statusMap?.Shipped)?.length ?? 0, active: false },
+                { label: 'Shipping', count: ordersList?.filter((i)=>i?.status===  "Shipped")?.length ?? 0, active: false },
                 { label: 'Delivered', count: ordersList?.filter((i)=>i?.status===statusMap.Delivered)?.length ?? 0, active: false },
                 { label: 'Return', count: ordersList.filter((i)=>i?.status===statusMap.Refunded)?.length ?? 0, active: false },
                 { label: 'Cancel', count: ordersList?.filter((i)=>i?.status===statusMap.Cancel)?.length ?? 0, active: false }, 
@@ -65,9 +80,9 @@ const Filters = () => {
                 { label: 'All orders', count:filtered?.length?? 0 , active: true },
                 { label: 'Processing', count: filtered?.filter((i)=>i?.status===statusMap.Processing)?.length ?? 0, active: false },
                 { label: 'Confirmed', count: filtered?.filter((i)=>i?.status===statusMap.Confirmed)?.length ?? 0, active: false },
-                { label: 'Shipping', count: filtered?.filter((i)=>i?.status===statusMap?.Shipped)?.length ?? 0, active: false },
+                { label: 'Shipping', count: filtered?.filter((i)=>i?.status=== "Shipped")?.length ?? 0, active: false },
                 { label: 'Delivered', count: filtered?.filter((i)=>i?.status===statusMap.Delivered)?.length ?? 0, active: false },
-                { label: 'Return', count: filtered.filter((i)=>i?.status===statusMap.Refunded)?.length ?? 0, active: false },
+                { label: 'Return', count: filtered?.filter((i)=>i?.status===statusMap.Refunded)?.length ?? 0, active: false },
                 { label: 'Cancel', count: filtered?.filter((i)=>i?.status===statusMap.Cancel)?.length ?? 0, active: false }, 
             ])
         }
@@ -78,10 +93,27 @@ const Filters = () => {
         setSelectFilter(label);
         // Filter the orders based on the selected filter
         if ( label === 'All orders') {
-            if(selectDate === null){
+            if(searchQuery){
+                console.log("searchQuery",searchQuery)
+                filtered =  tampOrdersList?.filter(order => {
+                    const fullName = `${order.user?.firstName} ${order.user.lastName}`.toLowerCase();
+                    const email = order?.user?.email?.toLowerCase();
+                    const phone = order?.user?.phone?.toLowerCase();
+                    const orderId = order?._id?.$oid?.toLowerCase();
+              
+                    return (
+                      fullName?.includes(searchQuery?.toLowerCase()) ||
+                      email?.includes(searchQuery?.toLowerCase()) ||
+                      phone?.includes(searchQuery?.toLowerCase()) ||
+                      orderId?.includes(searchQuery?.toLowerCase())
+                    );
+                  });
+                  setOrderList(filtered);
+            }else if(selectDate === null){
                 setOrderList(ordersList);
-            }else{
-
+            }
+            
+            else{
                 setOrderList(filtered);
             }
         } else {

@@ -50,7 +50,6 @@ const OrderDatePicker = () => {
                 );
               });
         }
-
         setOrderList(filtered);
     }, [selectDate, searchQuery]);
 
