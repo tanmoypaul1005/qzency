@@ -46,7 +46,7 @@ const TableRow = ({ _id, createdAt, user, payment, totalAmount, shipping, produc
         </div>
       </td>
       <td className="px-6 py-3">
-        <span className={`py-1 table-row px-3 rounded-full text-xs ${getPaymentStatusClass(payment?.status)}`}>
+        <span className={`py-1 px-3 text-sm font-[450] rounded-full ${getPaymentStatusClass(payment?.status)}`}>
           {payment?.status}
         </span>
       </td>
@@ -55,8 +55,8 @@ const TableRow = ({ _id, createdAt, user, payment, totalAmount, shipping, produc
           {delivery?.deliveryMethod}
         </div>
       </td>
-      <td className="px-6 py-3">
-        <span className={`py-1 table-row px-3 rounded-full text-xs ${getStatusClass(status)}`}>
+      <td className="px-6 py-3 ">
+        <span className={`py-1 px-3 rounded-full text-sm font-[450] ${getStatusClass(status)}`}>
           {status}
         </span>
       </td>
