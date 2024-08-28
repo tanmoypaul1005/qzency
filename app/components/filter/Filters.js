@@ -8,8 +8,8 @@ import ordersData from "../../../data/orders.json";
 import { useOrderStore } from '@/store/ordersStore';
 
 const Filters = () => {
-    const { tampOrdersList, selectDate, setOrderList, setSelectDate } = useOrderStore();
-    
+    const { ordersList, setOrderList } = useOrderStore();
+
     // Initialize state with an empty array to prevent mismatches
     const [filters, setFilters] = useState([
         { label: 'All orders', count: 0, active: true },
@@ -30,16 +30,11 @@ const Filters = () => {
         'Cancel': 'Cancel'
     };
 
+    // Use useEffect to ensure this runs only on the client side
     useEffect(() => {
         const newFilters = filters.map(filter => ({ ...filter })); // Create a copy
 
-        // Filter orders based on selected date and status
-        const filteredOrders = ordersData.filter(order => {
-            const orderDate = new Date(order.date); // Assuming your order data has a 'date' field
-            return selectDate ? orderDate.toDateString() === selectDate.toDateString() : true;
-        });
-
-        filteredOrders.forEach(order => {
+        ordersList?.forEach(order => {
             newFilters[0].count++; // Increment 'All orders' count
             const status = order.status;
             if (statusMap[status]) {
@@ -51,7 +46,7 @@ const Filters = () => {
         });
 
         setFilters(newFilters);
-    }, [selectDate]); // Re-run when selectDate changes
+    }, [ordersList]); // Empty dependency array ensures this runs only once on mount
 
     const handleFilterClick = (label) => {
         const updatedFilters = filters.map(filter => ({
@@ -61,17 +56,14 @@ const Filters = () => {
 
         setFilters(updatedFilters);
 
-        // Filter the orders based on the selected filter and date
-        const filteredOrders = ordersData.filter(order => {
-            const orderDate = new Date(order.date); // Assuming your order data has a 'date' field
-            const statusMatch = label === 'All orders' || statusMap[order.status] === label;
-            const dateMatch = selectDate ? orderDate.toDateString() === selectDate.toDateString() : true;
-            return statusMatch && dateMatch;
-        });
-
-        setOrderList(filteredOrders);
+        // Filter the orders based on the selected filter
+        if (label === 'All orders') {
+            setOrderList(ordersData);
+        } else {
+            const filteredOrders = ordersData.filter(order => statusMap[order.status] === label);
+            setOrderList(filteredOrders);
+        }
     };
-
 
     return (
         <div className="flex flex-wrap items-center justify-between gap-4">
