@@ -28,7 +28,7 @@ const Filters = () => {
       </div>
       <div className="flex gap-4">
         <SearchBar placeholder="Search orders..." />
-<FilterButton />
+        <FilterButton />
       </div>
     </div>
   );

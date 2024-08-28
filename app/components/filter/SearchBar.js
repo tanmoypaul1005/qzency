@@ -1,6 +1,10 @@
+import { useOrderStore } from '@/store/ordersStore';
 import React from 'react';
 
 const SearchBar = ({ placeholder }) => {
+
+  const { ordersList,setOrderList }=useOrderStore();
+  
   return (
     <div className="flex items-center px-4 py-2 bg-white border rounded-md">
       <input
