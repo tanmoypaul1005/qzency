@@ -19,9 +19,9 @@ const Filters = () => {
   const statusMap = {
     'Processing': 'Processing',
     'Confirmed': 'Confirmed',
-    'Shipping': 'Shipping',
+    'Shipped': 'Shipping',
     'Delivered': 'Delivered',
-    'Return': 'Return',
+    'Refunded': 'Return',
     'Cancel': 'Cancel'
   };
   
