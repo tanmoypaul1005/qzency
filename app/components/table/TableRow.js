@@ -1,23 +1,25 @@
 import { iOption, iPast } from '@/util/imageImports';
+import { formatDate } from '@/util/utilityFunction';
 import Image from 'next/image';
 import React from 'react';
 
-const TableRow = ({ orderId, date, customerInfo, total, quantity, paymentStatus, deliveryMethod, status }) => {
+const TableRow = ({ _id, createdAt, user, total, quantity, paymentStatus, deliveryMethod, status }) => {
   return (
     <tr className="border-b border-gray-200 hover:bg-gray-100">
       <td className="px-6 py-3 ">
         <div className="flex gap-x-2">
-
-        <div>{orderId}</div>
+        <div>{_id?.$oid}</div>
         <Image src={iPast} alt="phone" width={20} height={20} />
         </div>
       </td>
-      <td className="px-6 py-3">{date}</td>
+      <td className="px-6 py-3">{formatDate(createdAt?.$date)}</td>
       <td className="px-6 py-3 space-y-1">
-        <div className="text-sm font-normal leading-5 text-[#667085]">Safayet hossain</div>
+        <div className="text-sm font-normal leading-5 text-[#667085]">
+          {user?.firstName} {user?.lastName}
+        </div>
         <div className="flex gap-x-2">
         <div className="text-sm font-normal leading-5 text-[#E46A11]">
-          01854883320
+          {user?.phone}
         </div>
         <Image src={iPast} alt="phone" width={20} height={20} />
         </div>
