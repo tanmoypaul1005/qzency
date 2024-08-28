@@ -4,5 +4,5 @@
 
 
 .table-row {
-    @apply text-sm font-[450] leading-5 text-[#667085];
+    @apply whitespace-nowrap text-sm font-[450] leading-5 text-[#667085];
   }

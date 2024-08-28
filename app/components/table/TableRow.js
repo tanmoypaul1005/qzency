@@ -4,18 +4,22 @@ import { iOption, iPast } from '@/util/imageImports';
 import { formatDate } from '@/util/utilityFunction';
 import Image from 'next/image';
 
-const TableRow = ({ _id, createdAt, user, payment, totalAmount,shipping, products, delivery, status }) => {
+const TableRow = ({ _id, createdAt, user, payment, totalAmount, shipping, products, delivery, status }) => {
   return (
     <tr className="border-b border-gray-200 hover:bg-gray-100">
       <td className="px-6 py-3">
         <div className="flex gap-x-2">
-          <div>{_id?.$oid}</div>
+          <div className="table-row">{_id?.$oid}</div>
           <Image src={iPast} alt="phone" width={20} height={20} />
         </div>
       </td>
-      <td className="px-6 py-3 whitespace-nowrap">{formatDate(createdAt?.$date)}</td>
+      <td className="px-6 py-3 whitespace-nowrap">
+        <div className="table-row">
+          {formatDate(createdAt?.$date)}
+        </div>
+      </td>
       <td className="px-6 py-3 space-y-1">
-        <div className="text-sm font-normal leading-5 text-[#667085]">
+        <div className="text-sm table-row font-normal leading-5 text-[#667085]">
           {user?.firstName} {user?.lastName}
         </div>
         <div className="flex gap-x-2">
@@ -24,18 +28,30 @@ const TableRow = ({ _id, createdAt, user, payment, totalAmount,shipping, product
           </div>
           <Image src={iPast} alt="phone" width={20} height={20} />
         </div>
-        <div className="text-sm font-normal leading-5 text-[#667085]">{shipping?.address}</div>
+        <div className="table-row">{shipping?.address}</div>
       </td>
-      <td className="px-6 py-3">{totalAmount?.grandTotal}</td>
-      <td className="px-6 py-3">{products?.length ?? 0}</td>
       <td className="px-6 py-3">
-        <span className={`py-1 px-3 rounded-full text-xs ${getPaymentStatusClass(payment?.status)}`}>
+        <div className="table-row">
+          {totalAmount?.grandTotal}
+        </div>
+      </td>
+      <td className="px-6 py-3">
+        <div className="table-row">
+          {products?.length ?? 0}
+        </div>
+      </td>
+      <td className="px-6 py-3">
+        <span className={`py-1 table-row px-3 rounded-full text-xs ${getPaymentStatusClass(payment?.status)}`}>
           {payment?.status}
         </span>
       </td>
-      <td className="px-6 py-3">{delivery?.deliveryMethod}</td>
       <td className="px-6 py-3">
-        <span className={`py-1 px-3 rounded-full text-xs ${getStatusClass(status)}`}>
+        <div className="table-row">
+          {delivery?.deliveryMethod}
+        </div>
+      </td>
+      <td className="px-6 py-3">
+        <span className={`py-1 table-row px-3 rounded-full text-xs ${getStatusClass(status)}`}>
           {status}
         </span>
       </td>
