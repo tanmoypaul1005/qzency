@@ -22,7 +22,7 @@ const CopyToClipboard = ({ content }) => {
   return (
     <div className={`${isAnimating ? 'animate-bounce' : ''}`} onClick={handleCopyClick}>
     <Image
-      style={{ minWidth: '20px', minHeight: '20px' }}
+      style={{ minWidth: '18px', minHeight: '18px' }}
       className="cursor-pointer"
       src={iCopy}
       alt="copy"

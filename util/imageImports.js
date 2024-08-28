@@ -6,6 +6,6 @@ export { default as iNotification  } from "../public/icon/notification.svg";
 export { default as iAvatar  } from "../public/icon/avatar.svg";
 export { default as iFilter } from "../public/icon/filter.svg";
 export { default as iHelp } from "../public/icon/help.svg";
-
+export { default as iCalender } from "../public/icon/calender.svg";
 export { default as iArrowRight } from "../public/icon/ArrowRight.svg";
 export { default as iArrowLeft } from "../public/icon/ArrowLeft.svg";
