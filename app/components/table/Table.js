@@ -70,11 +70,11 @@ const Table = () => {
         </tbody>
       </table>
 
-      <div className="flex items-center justify-center mt-4 gap-x-5">
+      <div className="flex items-center justify-center my-4 gap-x-5">
         <button
           onClick={() => handlePageClick(currentPage - 1)}
           disabled={currentPage === 1}
-          className="flex items-center justify-center px-4 py-2 bg-white border-[1px] border-[#EAECF0] rounded gap-x-1 disabled:opacity-50"
+          className="flex items-center justify-center px-4 py-2 bg-white border-[1px] text-[#667085] border-[#EAECF0] rounded gap-x-1 disabled:opacity-50"
         >
           <Image src={iArrowLeft} alt="phone" />
           <div className="flex items-center justify-center text-sm font-medium text-[#667085]">
