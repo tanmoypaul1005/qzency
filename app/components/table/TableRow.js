@@ -9,6 +9,11 @@ const TableRow = ({ _id, createdAt, user, payment, totalAmount, shipping, produc
     <tr className="border-b border-gray-200 hover:bg-gray-100">
       <td className="px-6 py-3">
         <div className="flex gap-x-2">
+          <input
+            type="checkbox"
+            id="processing"
+            className=""
+          />
           <div className="table-row">{_id?.$oid}</div>
           <Image src={iPast} alt="phone" width={20} height={20} />
         </div>
