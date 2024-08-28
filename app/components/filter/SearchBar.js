@@ -3,7 +3,7 @@ import { useOrderStore } from '@/store/ordersStore';
 import React, { useState } from 'react';
 
 const SearchBar = ({ placeholder }) => {
-  const { ordersList,tampOrdersList, setOrderList } = useOrderStore();
+  const { tampOrdersList, setOrderList } = useOrderStore();
   const [searchQuery, setSearchQuery] = useState('');
 
   const handleInputChange = (e) => {
@@ -36,7 +36,7 @@ const SearchBar = ({ placeholder }) => {
         onChange={handleInputChange}
         className="flex-grow text-gray-600 outline-none"
       />
-      <i className="text-gray-500 fas fa-search"></i>
+     
     </div>
   );
 };
