@@ -51,22 +51,31 @@ const Table = () => {
   
   const renderPageNumbers = () => {
     const pageNumbers = getPaginationRange();
-  
-    return pageNumbers.map((page, index) => {
-      if (page === '...') {
-        return <span key={`ellipsis-${index}`}>...</span>;
-      }
-  
+    if(ordersList?.length <9 ){
       return (
         <button
-          key={page}
-          onClick={() => handlePageClick(page)}
-          className={`px-3 py-1 rounded-md ${currentPage === page ? 'bg-[#2166F0] text-white' : ''}`}
-        >
-          {page}
+          className={`px-3 cursor-not-allowed py-1 rounded-md bg-[#2166F0] text-white`}>
+          1
         </button>
       );
-    });
+    }else{
+      return pageNumbers?.map((page, index) => {
+        if (page === '...') {
+          return <span key={`ellipsis-${index}`}>...</span>;
+        }
+    
+        return (
+          <button
+            key={page}
+            onClick={() => handlePageClick(page)}
+            className={`px-3 py-1 rounded-md ${currentPage === page ? 'bg-[#2166F0] text-white' : ''}`}
+          >
+            {page}
+          </button>
+        );
+      });
+    }
+    
   };
 
   return (
@@ -118,7 +127,7 @@ const Table = () => {
         </div>
       )}
     </div>
-
+{/* 
       <div className="flex items-center justify-center my-4 gap-x-5">
         <button
           onClick={() => handlePageClick(currentPage - 1)}
@@ -143,7 +152,7 @@ const Table = () => {
           </div>
           <Image src={iArrowRight} alt="phone" />
         </button>
-      </div>
+      </div> */}
     </div>
   );
 };
