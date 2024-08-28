@@ -3,7 +3,7 @@ import { formatDate } from '@/util/utilityFunction';
 import Image from 'next/image';
 import React from 'react';
 
-const TableRow = ({ _id, createdAt, user, totalAmount, products, paymentStatus, deliveryMethod, status }) => {
+const TableRow = ({ _id, createdAt, user, payment,totalAmount, products, paymentStatus, deliveryMethod, status }) => {
   return (
     <tr className="border-b border-gray-200 hover:bg-gray-100">
       <td className="px-6 py-3 ">
@@ -28,8 +28,8 @@ const TableRow = ({ _id, createdAt, user, totalAmount, products, paymentStatus, 
       <td className="px-6 py-3">{totalAmount?.grandTotal}</td>
       <td className="px-6 py-3">{products?.length ?? 0}</td>
       <td className="px-6 py-3">
-        <span className={`py-1 px-3 rounded-full text-xs ${paymentStatus === 'Paid' ? 'bg-green-100 text-green-500' : paymentStatus === 'Canceled' ? 'bg-red-100 text-red-500' : 'bg-yellow-100 text-yellow-500'}`}>
-          {paymentStatus}
+        <span className={`py-1 px-3 rounded-full text-xs ${payment?.status === 'Paid' ? 'bg-green-100 text-green-500' : payment?.status === 'Canceled' ? 'bg-red-100 text-red-500' : 'bg-yellow-100 text-yellow-500'}`}>
+          {payment?.status}
         </span>
       </td>
       <td className="px-6 py-3">{deliveryMethod}</td>
