@@ -4,6 +4,9 @@ import orders from "../data/orders.json"
 
 export const useOrderStore = create((set) => ({
 
+    selectDate:null,
+    setSelectDate: (value) => set({ selectDate: value }),
+
     ordersList: orders,
     setOrderList: (value) => set({ ordersList: value }),
 

@@ -7,15 +7,13 @@ import 'react-datepicker/dist/react-datepicker.css';
 
 const OrderDatePicker = () => {
 
-    const { tampOrdersList, setOrderList } = useOrderStore();
-
-    const [startDate, setStartDate] = useState(null);
+    const {selectDate,setSelectDate, tampOrdersList, setOrderList } = useOrderStore();
 
     useEffect(() => {
-        if (startDate) {
+        if (selectDate) {
             const filtered = tampOrdersList.filter(order => {
-                const orderDate = new Date(order.createdAt.$date);
-                return orderDate.toDateString() === startDate.toDateString();
+                const orderDate = new Date(order?.createdAt?.$date);
+                return orderDate?.toDateString() === selectDate?.toDateString();
             });
 
             setOrderList(filtered);
@@ -23,15 +21,15 @@ const OrderDatePicker = () => {
             
             setOrderList(tampOrdersList);
         }
-    }, [startDate]);
+    }, [selectDate]);
 
     const handleDateChange = (date) => {
-        setStartDate(date);
+        setSelectDate(date);
     };
 
     return (
         <DatePicker
-        selected={startDate}
+        selected={selectDate}
         onChange={handleDateChange}
         placeholderText="Select Dates"
         dateFormat="MM/dd/yyyy"
