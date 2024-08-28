@@ -25,39 +25,48 @@ const Table = () => {
     setCurrentPage(page);
   };
 
+  const getPaginationRange = () => {
+    const range = [];
+    const startPage = Math.max(2, currentPage - 2);
+    const endPage = Math.min(totalPages - 1, currentPage + 2);
+  
+    range.push(1); // Always show the first page
+  
+    if (startPage > 2) {
+      range.push('...'); // Ellipsis for skipped pages
+    }
+  
+    for (let i = startPage; i <= endPage; i++) {
+      range.push(i);
+    }
+  
+    if (endPage < totalPages - 1) {
+      range.push('...'); // Ellipsis for skipped pages
+    }
+  
+    range.push(totalPages); // Always show the last page
+  
+    return range;
+  };
+  
   const renderPageNumbers = () => {
-    const pageNumbers = [];
-    const maxPagesToShow = 5;
-
-    for (let i = 1; i <= Math.min(maxPagesToShow, totalPages); i++) {
-      pageNumbers.push(
+    const pageNumbers = getPaginationRange();
+  
+    return pageNumbers.map((page, index) => {
+      if (page === '...') {
+        return <span key={`ellipsis-${index}`}>...</span>;
+      }
+  
+      return (
         <button
-          key={i}
-          onClick={() => handlePageClick(i)}
-          className={`px-3 py-1 rounded-md ${currentPage === i ? 'bg-[#2166F0] text-white' : ""}`}
+          key={page}
+          onClick={() => handlePageClick(page)}
+          className={`px-3 py-1 rounded-md ${currentPage === page ? 'bg-[#2166F0] text-white' : ''}`}
         >
-          {i}
+          {page}
         </button>
       );
-    }
-
-    if (totalPages > maxPagesToShow) {
-      pageNumbers.push(<span key="ellipsis">...</span>);
-
-      for (let i = totalPages - 2; i <= totalPages; i++) {
-        pageNumbers.push(
-          <button
-            key={i}
-            onClick={() => handlePageClick(i)}
-            className={`px-3 py-1 rounded-md ${currentPage === i ? 'bg-[#2166F0] text-white' : ''}`}
-          >
-            {i}
-          </button>
-        );
-      }
-    }
-
-    return pageNumbers;
+    });
   };
 
   return (
@@ -102,3 +111,91 @@ const Table = () => {
 
 export default Table;
 
+// import React from 'react';
+// import Image from 'next/image';
+// import iArrowLeft from 'path/to/arrow-left-icon';
+// import iArrowRight from 'path/to/arrow-right-icon';
+// import TableHeader from './TableHeader';
+// import TableRow from './TableRow';
+
+// const Table = ({ paginatedOrders, selectedOrder, currentPage, totalPages, handlePageClick }) => {
+//   const getPaginationRange = () => {
+//     const range = [];
+//     const startPage = Math.max(2, currentPage - 2);
+//     const endPage = Math.min(totalPages - 1, currentPage + 2);
+
+//     range.push(1); // Always show the first page
+
+//     if (startPage > 2) {
+//       range.push('...'); // Ellipsis for skipped pages
+//     }
+
+//     for (let i = startPage; i <= endPage; i++) {
+//       range.push(i);
+//     }
+
+//     if (endPage < totalPages - 1) {
+//       range.push('...'); // Ellipsis for skipped pages
+//     }
+
+//     range.push(totalPages); // Always show the last page
+
+//     return range;
+//   };
+
+//   const paginationRange = getPaginationRange();
+
+//   return (
+//     <div className="overflow-x-auto">
+//       <table className="min-w-full bg-white">
+//         <TableHeader />
+//         <tbody className="text-sm text-gray-600">
+//           {paginatedOrders?.map((order, index) => (
+//             <TableRow selectedOrder={selectedOrder} key={index} {...order} />
+//           ))}
+//         </tbody>
+//       </table>
+
+//       <div className="flex items-center justify-center my-4 gap-x-5">
+//         <button
+//           onClick={() => handlePageClick(currentPage - 1)}
+//           disabled={currentPage === 1}
+//           className="flex items-center justify-center px-4 py-2 bg-white border-[1px] text-[#667085] border-[#EAECF0] rounded gap-x-1 disabled:opacity-50"
+//         >
+//           <Image src={iArrowLeft} alt="Previous" />
+//           <div className="flex items-center justify-center text-sm font-medium text-[#667085]">
+//             Previous
+//           </div>
+//         </button>
+//         <div className="flex space-x-1">
+//           {paginationRange.map((page, index) => (
+//             <button
+//               key={index}
+//               onClick={() => typeof page === 'number' && handlePageClick(page)}
+//               disabled={page === '...'}
+//               className={`flex items-center justify-center px-4 py-2 border-[1px] rounded ${
+//                 page === currentPage
+//                   ? 'bg-blue-500 text-white'
+//                   : 'bg-white text-[#667085] border-[#EAECF0]'
+//               }`}
+//             >
+//               {page}
+//             </button>
+//           ))}
+//         </div>
+//         <button
+//           onClick={() => handlePageClick(currentPage + 1)}
+//           disabled={currentPage === totalPages}
+//           className="flex items-center justify-center px-4 py-2 bg-white border-[1px] text-[#667085] border-[#EAECF0] rounded gap-x-1 disabled:opacity-50"
+//         >
+//           <div className="flex items-center justify-center text-sm font-medium text-[#667085]">
+//             Next
+//           </div>
+//           <Image src={iArrowRight} alt="Next" />
+//         </button>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default Table;
