@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { iOption, iPast } from '@/util/imageImports';
+import { iOption, iCopy } from '@/util/imageImports';
 import { formatDate } from '@/util/utilityFunction';
 import Image from 'next/image';
+import CopyToClipboard from '../CopyToClipboard';
 
 const TableRow = ({ _id, createdAt, user, payment, totalAmount, shipping, products, delivery, status }) => {
   return (
@@ -15,7 +16,7 @@ const TableRow = ({ _id, createdAt, user, payment, totalAmount, shipping, produc
             className=""
           />
           <div className="table-row">{_id?.$oid}</div>
-          <Image className="cursor-pointer" src={iPast} alt="phone" width={20} height={20} />
+          <CopyToClipboard content={_id?.$oid}/>
         </div>
       </td>
       <td className="px-6 py-3 whitespace-nowrap">
@@ -31,9 +32,9 @@ const TableRow = ({ _id, createdAt, user, payment, totalAmount, shipping, produc
           <div className="text-sm whitespace-nowrap font-normal leading-5 text-[#E46A11]">
             {user?.phone}
           </div>
-          <Image className="cursor-pointer" src={iPast} alt="phone" width={20} height={20} />
+          <CopyToClipboard content={user?.phone}/>
         </div>
-        <div className="table-row">{shipping?.address}</div>
+        <div className="table-row text-[#667085]">{shipping?.address}</div>
       </td>
       <td className="px-6 py-3">
         <div className="table-row">
