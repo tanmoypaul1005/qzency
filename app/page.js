@@ -11,12 +11,7 @@ function App() {
     <>
       <Header />
       <div style={{ boxShadow: '0px 3px 10px 0px #7777771A' }} className="mx-6 rounded-lg px-6 py-4  border-[1px] border-[#EAECF0]">
-        <DashboardSummary
-          totalRevenue="12,084"
-          orderItems={184}
-          returnItems={12}
-          fulfilledOrders={84}
-        />
+        <DashboardSummary/>
         <div className="my-4">
           <Filters />
         </div>

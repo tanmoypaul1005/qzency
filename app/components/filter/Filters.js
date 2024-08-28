@@ -4,6 +4,7 @@ import SearchBar from './SearchBar';
 import FilterBox from './FilterBox';
 
 const Filters = () => {
+  
   const filters = [
     { label: 'All orders', count: 840, active: true },
     { label: 'Processing', count: 340, active: false },

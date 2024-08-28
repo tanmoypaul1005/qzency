@@ -2,9 +2,38 @@
 import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { format } from 'date-fns';
+import ordersData from '../../../data/orders.json'; 
 
-const DashboardSummary = ({ totalRevenue, orderItems, returnItems, fulfilledOrders }) => {
+const DashboardSummary = ({  }) => {
+
+    // Initialize metrics
+let totalRevenue = 0;
+let orderItems = 0;
+let returnItems = 0; // Assuming return items are marked with a specific status
+let fulfilledOrders = 0;
+
+// Iterate through the orders to calculate metrics
+ordersData.forEach(order => {
+  // Calculate total revenue
+  totalRevenue += order.totalAmount.grandTotal;
+
+  // Calculate total order items
+  order.products.forEach(product => {
+    orderItems += product.quantity;
+  });
+
+  // Check if the order is fulfilled
+  if (order.status === 'Shipped' || order.status === 'Delivered') {
+    fulfilledOrders += 1;
+  }
+
+  // Calculate return items (assuming return items have a specific status)
+  if (order.status === 'Returned') {
+    returnItems += 1;
+  }
+});
+
+
     const [startDate, setStartDate] = useState(null);
 
     const handleDateChange = (date) => {
