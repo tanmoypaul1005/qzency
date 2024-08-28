@@ -7,7 +7,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 
 const OrderDatePicker = () => {
 
-    const { ordersList,tampOrdersList, setOrderList } = useOrderStore();
+    const { tampOrdersList, setOrderList } = useOrderStore();
 
     const [startDate, setStartDate] = useState(null);
 

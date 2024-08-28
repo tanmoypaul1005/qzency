@@ -1,9 +1,13 @@
 "use client"
+import { useOrderStore } from '@/store/ordersStore';
 import { iFilter } from '@/util/imageImports';
 import Image from 'next/image';
 import React, { useState } from 'react';
 
 const FilterButton= () => {
+    
+    const { tampOrdersList, setOrderList } = useOrderStore();
+
     const [isOpen, setIsOpen] = useState(false);
 
     const toggleDropdown = () => {
