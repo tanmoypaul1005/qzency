@@ -1,4 +1,6 @@
 import React from 'react';
+import orders from "../../../data/orders.json"
+import TableRow from './TableRow';
 
 const Table = ({ children }) => {
   return (
@@ -18,7 +20,9 @@ const Table = ({ children }) => {
           </tr>
         </thead>
         <tbody className="text-sm text-gray-600">
-          {children}
+        {orders?.map((order, index) => (
+            <TableRow key={index} {...order} />
+          ))}
         </tbody>
       </table>
     </div>

@@ -1,10 +1,8 @@
 
 import React from 'react';
 import Table from './components/table/Table';
-import TableRow from './components/table/TableRow';
 import Filters from './components/filter/Filters';
 import DashboardSummary from './components/filter/DashboardSummary';
-import orders from '../data/orders.json'; // Import orders from JSON file
 import Header from './components/header/header';
 
 function App() {
@@ -22,11 +20,7 @@ function App() {
         <div className="my-4">
           <Filters />
         </div>
-        <Table>
-          {orders?.map((order, index) => (
-            <TableRow key={index} {...order} />
-          ))}
-        </Table>
+        <Table/>
       </div>
     </>
   );
