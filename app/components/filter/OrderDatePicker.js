@@ -9,20 +9,50 @@ import 'react-datepicker/dist/react-datepicker.css';
 
 const OrderDatePicker = () => {
 
-    const { selectDate, setSelectDate, tampOrdersList, setOrderList } = useOrderStore();
+    const {searchQuery, selectDate, setSelectDate, tampOrdersList, setOrderList } = useOrderStore();
+
+    // useEffect(() => {
+    //     if (selectDate) {
+    //         const filtered = tampOrdersList.filter(order => {
+    //             const orderDate = new Date(order?.createdAt?.$date);
+    //             return orderDate?.toDateString() === selectDate?.toDateString();
+    //         });
+
+    //         setOrderList(filtered);
+    //     } else {
+    //         setOrderList(tampOrdersList);
+    //     }
+    // }, [selectDate]);
+
 
     useEffect(() => {
-        if (selectDate) {
-            const filtered = tampOrdersList.filter(order => {
-                const orderDate = new Date(order?.createdAt?.$date);
-                return orderDate?.toDateString() === selectDate?.toDateString();
-            });
+        let filtered = tampOrdersList;
 
-            setOrderList(filtered);
-        } else {
-            setOrderList(tampOrdersList);
+        if (selectDate) {
+            filtered = filtered?.filter(order => {
+                const orderDate = new Date(order?.createdAt?.$date);
+                return orderDate?.toDateString() === new Date(selectDate)?.toDateString();
+            });
         }
-    }, [selectDate]);
+
+        if (searchQuery) {
+            filtered =  filtered?.filter(order => {
+                const fullName = `${order.user?.firstName} ${order.user.lastName}`.toLowerCase();
+                const email = order?.user?.email?.toLowerCase();
+                const phone = order?.user?.phone?.toLowerCase();
+                const orderId = order?._id?.$oid?.toLowerCase();
+          
+                return (
+                  fullName?.includes(searchQuery?.toLowerCase()) ||
+                  email?.includes(searchQuery?.toLowerCase()) ||
+                  phone?.includes(searchQuery?.toLowerCase()) ||
+                  orderId?.includes(searchQuery?.toLowerCase())
+                );
+              });
+        }
+
+        setOrderList(filtered);
+    }, [selectDate, searchQuery]);
 
     const handleDateChange = (date) => {
         setSelectDate(date);

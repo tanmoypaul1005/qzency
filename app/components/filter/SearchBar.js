@@ -7,8 +7,9 @@ import { ImSpinner2 } from "react-icons/im";
 import { BiSearch } from "react-icons/bi";
 
 const SearchBar = ({ placeholder }) => {
-  const { tampOrdersList, setOrderList } = useOrderStore();
-  const [searchQuery, setSearchQuery] = useState('');
+  
+  const { tampOrdersList, setOrderList,searchQuery, setSearchQuery } = useOrderStore();
+
   const [isLoading, setIsLoading] = useState(false);
 
   const [searchValue] = useDebounce(searchQuery, 400);
