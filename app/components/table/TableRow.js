@@ -10,19 +10,19 @@ const TableRow = ({ _id, createdAt, user, payment, totalAmount,selectedOrder, sh
   const selected = selectedOrder?.includes(_id?.$oid);
   return (
     <tr className={`border-b border-gray-200 ${selected && "bg-gray-100"} hover:bg-gray-100`}>
-      <td className="px-6 py-3">
+      <td className="px-4 py-3">
         <div className="flex gap-x-2">
           <Checkbox id={_id?.$oid}/>
           <div className="table-row">{_id?.$oid}</div>
           <CopyToClipboard content={_id?.$oid}/>
         </div>
       </td>
-      <td className="px-6 py-3 whitespace-nowrap">
+      <td className="px-4 py-3 whitespace-nowrap">
         <div className="table-row">
           {formatDate(createdAt?.$date)}
         </div>
       </td>
-      <td className="px-6 py-3 space-y-1">
+      <td className="px-4 py-3 space-y-1">
         <div className="table-row">
           {user?.firstName} {user?.lastName}
         </div>
@@ -34,32 +34,32 @@ const TableRow = ({ _id, createdAt, user, payment, totalAmount,selectedOrder, sh
         </div>
         <div className="table-row text-[#667085]">{shipping?.address}</div>
       </td>
-      <td className="px-6 py-3">
+      <td className="px-4 py-3">
         <div className="table-row">
           {totalAmount?.grandTotal}
         </div>
       </td>
-      <td className="px-6 py-3">
+      <td className="px-4 py-3">
         <div className="table-row">
           {products?.length ?? 0}
         </div>
       </td>
-      <td className="px-6 py-3">
+      <td className="px-4 py-3">
         <span className={`py-1 px-3 text-sm font-[450] rounded-full ${getPaymentStatusClass(payment?.status)}`}>
           {payment?.status}
         </span>
       </td>
-      <td className="px-6 py-3">
+      <td className="px-4 py-3">
         <div className="table-row">
           {delivery?.deliveryMethod}
         </div>
       </td>
-      <td className="px-6 py-3 ">
+      <td className="px-4 py-3 ">
         <span className={`py-1 px-3 rounded-full text-sm font-[450] ${getStatusClass(status)}`}>
           {status}
         </span>
       </td>
-      <td className="px-6 py-3 text-right">
+      <td className="px-4 py-3 text-right">
         <Image src={iOption} alt="phone" />
       </td>
     </tr>
