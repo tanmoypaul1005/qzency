@@ -4,4 +4,4 @@ export { default as iExportButton } from "../public/icon/exportButton.svg";
 export { default as iAdd } from "../public/icon/add.svg";
 export { default as iNotification  } from "../public/icon/notification.svg";
 export { default as iAvatar  } from "../public/icon/avatar.svg";
-export { default as iHelp } from "../public/icon/help.svg";
+export { default as iFilter } from "../public/icon/filter.svg";
