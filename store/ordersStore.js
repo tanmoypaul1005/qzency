@@ -5,7 +5,10 @@ import orders from "../data/orders.json"
 export const useOrderStore = create((set) => ({
 
     ordersList: orders,
-    setOrderList: (value) => set({ orderList: value }),
+    setOrderList: (value) => set({ ordersList: value }),
+
+    tampOrdersList: orders,
+    setTampOrdersListList: (value) => set({ tampOrdersList: value }),
 
     filterForm:{
       category:null,
