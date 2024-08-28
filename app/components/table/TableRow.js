@@ -15,7 +15,7 @@ const TableRow = ({ _id, createdAt, user, payment, totalAmount, shipping, produc
             className=""
           />
           <div className="table-row">{_id?.$oid}</div>
-          <Image src={iPast} alt="phone" width={20} height={20} />
+          <Image className="cursor-pointer" src={iPast} alt="phone" width={20} height={20} />
         </div>
       </td>
       <td className="px-6 py-3 whitespace-nowrap">
@@ -31,7 +31,7 @@ const TableRow = ({ _id, createdAt, user, payment, totalAmount, shipping, produc
           <div className="text-sm whitespace-nowrap font-normal leading-5 text-[#E46A11]">
             {user?.phone}
           </div>
-          <Image src={iPast} alt="phone" width={20} height={20} />
+          <Image className="cursor-pointer" src={iPast} alt="phone" width={20} height={20} />
         </div>
         <div className="table-row">{shipping?.address}</div>
       </td>
