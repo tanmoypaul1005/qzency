@@ -69,9 +69,9 @@ const TableRow = ({ _id, createdAt, user, payment, totalAmount,selectedOrder, sh
 const getPaymentStatusClass = (status) => {
   switch (status) {
     case 'Paid':
-      return 'bg-green-100 text-green-500';
+      return 'bg-[#E5F5EB] text-[#0D894F]';
     case 'Canceled':
-      return 'bg-red-100 text-red-500';
+      return 'bg-[#F9F0F0] text-[#FC0000]';
     default:
       return 'bg-yellow-100 text-yellow-500';
   }
