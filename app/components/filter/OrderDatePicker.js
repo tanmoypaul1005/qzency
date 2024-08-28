@@ -18,7 +18,6 @@ const OrderDatePicker = () => {
 
             setOrderList(filtered);
         } else {
-            
             setOrderList(tampOrdersList);
         }
     }, [selectDate]);

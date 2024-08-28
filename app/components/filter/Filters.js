@@ -9,8 +9,7 @@ import { useOrderStore } from '@/store/ordersStore';
 
 const Filters = () => {
 
-    const {selectDate, ordersList, setOrderList } = useOrderStore();
-    console.log("ordersList",ordersList)
+    const {selectDate,tampOrdersList, selectFilter,setSelectFilter,ordersList, setOrderList } = useOrderStore();
 
     // Initialize state with an empty array to prevent mismatches
     const [filters, setFilters] = useState([
@@ -46,6 +45,17 @@ const Filters = () => {
     }, [ordersList,selectDate]); // Empty dependency array ensures this runs only once on mount
 
     const handleFilterClick = (label) => {
+        setSelectFilter(label);
+        if (selectDate) {
+            const filtered = tampOrdersList.filter(order => {
+                const orderDate = new Date(order?.createdAt?.$date);
+                return orderDate?.toDateString() === selectDate?.toDateString();
+            });
+
+            setOrderList(filtered);
+        } else {
+            setOrderList(tampOrdersList);
+        }
         const updatedFilters = filters.map(filter => ({
             ...filter,
             active: filter.label === label
@@ -57,7 +67,7 @@ const Filters = () => {
         if (label === 'All orders') {
             setOrderList(ordersData);
         } else {
-            const filteredOrders = ordersData.filter(order => statusMap[order.status] === label);
+            const filteredOrders = ordersList.filter(order => statusMap[order.status] === label);
             setOrderList(filteredOrders);
         }
     };
@@ -70,7 +80,7 @@ const Filters = () => {
                         key={index}
                         label={filter.label}
                         count={filter.count}
-                        active={filter.active}
+                        active={filter.label==="All orders" && selectFilter=== null ? true:  selectFilter === filter.label }
                         onClick={handleFilterClick}
                     />
                 ))}

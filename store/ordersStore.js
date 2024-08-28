@@ -7,6 +7,9 @@ export const useOrderStore = create((set) => ({
     selectDate:null,
     setSelectDate: (value) => set({ selectDate: value }),
 
+    selectFilter:null,
+    setSelectFilter: (value) => set({ selectFilter: value }),
+
     ordersList: orders,
     setOrderList: (value) => set({ ordersList: value }),
 
