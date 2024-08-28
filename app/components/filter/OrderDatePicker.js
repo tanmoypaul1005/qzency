@@ -35,7 +35,7 @@ const OrderDatePicker = () => {
         onChange={handleDateChange}
         placeholderText="Select Dates"
         dateFormat="MM/dd/yyyy"
-        className="px-4 py-2 text-gray-700 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="px-4 py-2 text-gray-700 border border-gray-300 rounded-md focus:outline-none "
     />
     )
 }
