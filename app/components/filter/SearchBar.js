@@ -8,12 +8,19 @@ import { BiSearch } from "react-icons/bi";
 
 const SearchBar = ({ placeholder }) => {
   
-  const { tampOrdersList, selectDate,setOrderList,searchQuery, setSearchQuery } = useOrderStore();
+  const { tampOrdersList,selectFilter, selectDate,setOrderList,searchQuery, setSearchQuery } = useOrderStore();
 
   const [isLoading, setIsLoading] = useState(false);
 
   const [searchValue] = useDebounce(searchQuery, 400);
-
+  const statusMap = {
+    'Processing': 'Processing',
+    'Confirmed': 'Confirmed',
+    'Shipped': 'Shipping',
+    'Delivered': 'Delivered',
+    'Refunded': 'Return',
+    'Cancel': 'Cancel'
+};
   useEffect(() => {
     handleInputChange(searchValue)
   }, [searchValue])
@@ -26,7 +33,10 @@ const SearchBar = ({ placeholder }) => {
           const orderDate = new Date(order?.createdAt?.$date);
           return orderDate?.toDateString() === new Date(selectDate)?.toDateString();
       });
-  }
+    }
+    if(selectFilter){
+      filtered =filtered?.filter(order => statusMap[order.status] === selectFilter);
+    }
 
      filtered = filtered?.filter(order => {
       const fullName = `${order.user.firstName} ${order.user.lastName}`.toLowerCase();

@@ -3,13 +3,14 @@
 import { useOrderStore } from '@/store/ordersStore';
 import { iCalender } from '@/util/imageImports';
 import Image from 'next/image';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import { MdOutlineCancel } from "react-icons/md";
 
 const OrderDatePicker = () => {
 
-    const {searchQuery, selectDate, setSelectDate, tampOrdersList, setOrderList } = useOrderStore();
+    const { searchQuery, selectDate, setSelectDate, tampOrdersList, setOrderList } = useOrderStore();
 
     // useEffect(() => {
     //     if (selectDate) {
@@ -36,19 +37,19 @@ const OrderDatePicker = () => {
         }
 
         if (searchQuery) {
-            filtered =  filtered?.filter(order => {
+            filtered = filtered?.filter(order => {
                 const fullName = `${order.user?.firstName} ${order.user.lastName}`.toLowerCase();
                 const email = order?.user?.email?.toLowerCase();
                 const phone = order?.user?.phone?.toLowerCase();
                 const orderId = order?._id?.$oid?.toLowerCase();
-          
+
                 return (
-                  fullName?.includes(searchQuery?.toLowerCase()) ||
-                  email?.includes(searchQuery?.toLowerCase()) ||
-                  phone?.includes(searchQuery?.toLowerCase()) ||
-                  orderId?.includes(searchQuery?.toLowerCase())
+                    fullName?.includes(searchQuery?.toLowerCase()) ||
+                    email?.includes(searchQuery?.toLowerCase()) ||
+                    phone?.includes(searchQuery?.toLowerCase()) ||
+                    orderId?.includes(searchQuery?.toLowerCase())
                 );
-              });
+            });
         }
         setOrderList(filtered);
     }, [selectDate, searchQuery]);
@@ -69,6 +70,10 @@ const OrderDatePicker = () => {
             <div className="absolute left-3.5 top-[21px]">
                 <Image src={iCalender} alt="" />
             </div>
+
+            {selectDate && <div onClick={() => { setSelectDate(null); }} className="absolute cursor-pointer right-3 top-[22.5px]">
+                <MdOutlineCancel />
+            </div>}
         </div>
     )
 }
