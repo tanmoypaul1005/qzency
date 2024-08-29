@@ -53,41 +53,30 @@ const Filters = () => {
     else {
         filtered= tampOrdersList;
     }
-  
+
+    const generateFilters = (orders, statusMap) => [
+        { label: 'All orders', count: orders?.length ?? 0, active: true },
+        { label: 'Processing', count: orders?.filter((i) => i?.status === statusMap.Processing)?.length ?? 0, active: false },
+        { label: 'Confirmed', count: orders?.filter((i) => i?.status === statusMap.Confirmed)?.length ?? 0, active: false },
+        { label: 'Shipping', count: orders?.filter((i) => i?.status === "Shipped")?.length ?? 0, active: false },
+        { label: 'Delivered', count: orders?.filter((i) => i?.status === statusMap.Delivered)?.length ?? 0, active: false },
+        { label: 'Return', count: orders?.filter((i) => i?.status === statusMap.Refunded)?.length ?? 0, active: false },
+        { label: 'Cancel', count: orders?.filter((i) => i?.status === statusMap.Cancel)?.length ?? 0, active: false },
+    ];
     useEffect(() => {
-        if(selectDate && selectFilter === null){
-            setFilters([
-                { label: 'All orders', count:ordersList?.length?? 0 , active: true },
-                { label: 'Processing', count: ordersList?.filter((i)=>i?.status===statusMap.Processing)?.length ?? 0, active: false },
-                { label: 'Confirmed', count: ordersList?.filter((i)=>i?.status===statusMap.Confirmed)?.length ?? 0, active: false },
-                { label: 'Shipping', count: ordersList?.filter((i)=>i?.status=== "Shipped")?.length ?? 0, active: false },
-                { label: 'Delivered', count: ordersList?.filter((i)=>i?.status===statusMap.Delivered)?.length ?? 0, active: false },
-                { label: 'Return', count: ordersList?.filter((i)=>i?.status===statusMap.Refunded)?.length ?? 0, active: false },
-                { label: 'Cancel', count: ordersList?.filter((i)=>i?.status===statusMap.Cancel)?.length ?? 0, active: false }, 
-            ])
-        }else if(selectDate=== null  && selectFilter === null){
-            setFilters([
-                { label: 'All orders', count:ordersList?.length?? 0 , active: true },
-                { label: 'Processing', count: ordersList?.filter((i)=>i?.status===statusMap.Processing)?.length ?? 0, active: false },
-                { label: 'Confirmed', count: ordersList?.filter((i)=>i?.status===statusMap.Confirmed)?.length ?? 0, active: false },
-                { label: 'Shipping', count: ordersList?.filter((i)=>i?.status===  "Shipped")?.length ?? 0, active: false },
-                { label: 'Delivered', count: ordersList?.filter((i)=>i?.status===statusMap.Delivered)?.length ?? 0, active: false },
-                { label: 'Return', count: ordersList.filter((i)=>i?.status===statusMap.Refunded)?.length ?? 0, active: false },
-                { label: 'Cancel', count: ordersList?.filter((i)=>i?.status===statusMap.Cancel)?.length ?? 0, active: false }, 
-            ])
-        }else {
-            setFilters([
-                { label: 'All orders', count:filtered?.length?? 0 , active: true },
-                { label: 'Processing', count: filtered?.filter((i)=>i?.status===statusMap.Processing)?.length ?? 0, active: false },
-                { label: 'Confirmed', count: filtered?.filter((i)=>i?.status===statusMap.Confirmed)?.length ?? 0, active: false },
-                { label: 'Shipping', count: filtered?.filter((i)=>i?.status=== "Shipped")?.length ?? 0, active: false },
-                { label: 'Delivered', count: filtered?.filter((i)=>i?.status===statusMap.Delivered)?.length ?? 0, active: false },
-                { label: 'Return', count: filtered?.filter((i)=>i?.status===statusMap.Refunded)?.length ?? 0, active: false },
-                { label: 'Cancel', count: filtered?.filter((i)=>i?.status===statusMap.Cancel)?.length ?? 0, active: false }, 
-            ])
+        if (selectDate && selectFilter === null) {
+            setFilters(generateFilters(ordersList, statusMap));
+            return;
         }
-  
-    }, [ordersList,selectDate]); // Empty dependency array ensures this runs only once on mount
+    
+        if (selectDate === null && selectFilter === null) {
+            setFilters(generateFilters(ordersList, statusMap));
+            return;
+        }
+    
+        setFilters(generateFilters(filtered, statusMap));
+    }, [ordersList,selectDate]);
+
 
     const handleFilterClick = (label) => {
         setSelectFilter(label);
