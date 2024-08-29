@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { iOption  } from '@/util/imageImports';
+import { iCompany, iOption  } from '@/util/imageImports';
 import { formatDate } from '@/util/utilityFunction';
 import Image from 'next/image';
 import CopyToClipboard from '../CopyToClipboard';
@@ -50,8 +50,11 @@ const TableRow = ({ _id, createdAt, user, payment, totalAmount,selectedOrder, sh
         </span>
       </td>
       <td className="px-4 py-3">
+        <div className="flex flex-col items-center justify-center">
+           <Image style={{maxWidth:25, minWidth:25 ,minHeight:25, maxHeight:25}} src={iCompany} alt=""/>
         <div className="table-row">
           {delivery?.deliveryMethod}
+        </div>
         </div>
       </td>
       <td className="px-4 py-3 ">
