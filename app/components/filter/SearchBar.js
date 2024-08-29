@@ -1,14 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client"
 import { useOrderStore } from '@/store/ordersStore';
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDebounce } from "use-debounce";
 import { ImSpinner2 } from "react-icons/im";
 import { BiSearch } from "react-icons/bi";
+import { MdOutlineCancel } from "react-icons/md";
 
 const SearchBar = ({ placeholder }) => {
-  
-  const { tampOrdersList,selectFilter,setCurrentPage, selectDate,setOrderList,searchQuery, setSearchQuery } = useOrderStore();
+
+  const { tampOrdersList, selectFilter, setCurrentPage, selectDate, setOrderList, searchQuery, setSearchQuery } = useOrderStore();
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -20,7 +21,7 @@ const SearchBar = ({ placeholder }) => {
     'Delivered': 'Delivered',
     'Refunded': 'Return',
     'Cancel': 'Cancel'
-};
+  };
   useEffect(() => {
     handleInputChange(searchValue)
   }, [searchValue])
@@ -31,15 +32,15 @@ const SearchBar = ({ placeholder }) => {
     let filtered = tampOrdersList;
     if (selectDate) {
       filtered = filtered?.filter(order => {
-          const orderDate = new Date(order?.createdAt?.$date);
-          return orderDate?.toDateString() === new Date(selectDate)?.toDateString();
+        const orderDate = new Date(order?.createdAt?.$date);
+        return orderDate?.toDateString() === new Date(selectDate)?.toDateString();
       });
     }
-    if(selectFilter){
-      filtered =filtered?.filter(order => statusMap[order.status] === selectFilter);
+    if (selectFilter) {
+      filtered = filtered?.filter(order => statusMap[order.status] === selectFilter);
     }
 
-     filtered = filtered?.filter(order => {
+    filtered = filtered?.filter(order => {
       const fullName = `${order.user.firstName} ${order.user.lastName}`.toLowerCase();
       const email = order.user.email.toLowerCase();
       const phone = order.user.phone.toLowerCase();
@@ -55,7 +56,7 @@ const SearchBar = ({ placeholder }) => {
 
     setOrderList(filtered);
     setTimeout(() => {
-      
+
       setIsLoading(false);
     }, 800);
   };
@@ -66,7 +67,7 @@ const SearchBar = ({ placeholder }) => {
         type="text"
         placeholder={placeholder}
         value={searchQuery}
-        onChange={(e) => {setSearchQuery(e.target.value)}}
+        onChange={(e) => { setSearchQuery(e.target.value) }}
         className="flex-grow text-gray-600 outline-none"
       />
       <div className="absolute top-0 right-2">
@@ -76,6 +77,11 @@ const SearchBar = ({ placeholder }) => {
           <BiSearch className="w-5 h-[42px]" />
         )}
       </div>
+
+      {searchQuery && <div onClick={() => { setSearchQuery(null) }} 
+      className="absolute cursor-pointer right-8 top-[12px]">
+        <MdOutlineCancel />
+      </div>}
     </div>
   );
 };
