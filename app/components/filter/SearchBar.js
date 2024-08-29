@@ -8,7 +8,7 @@ import { BiSearch } from "react-icons/bi";
 
 const SearchBar = ({ placeholder }) => {
   
-  const { tampOrdersList,selectFilter, selectDate,setOrderList,searchQuery, setSearchQuery } = useOrderStore();
+  const { tampOrdersList,selectFilter,setCurrentPage, selectDate,setOrderList,searchQuery, setSearchQuery } = useOrderStore();
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -27,6 +27,7 @@ const SearchBar = ({ placeholder }) => {
 
   const handleInputChange = (query) => {
     setIsLoading(true);
+    setCurrentPage(1);
     let filtered = tampOrdersList;
     if (selectDate) {
       filtered = filtered?.filter(order => {

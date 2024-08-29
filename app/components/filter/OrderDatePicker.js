@@ -10,23 +10,10 @@ import { MdOutlineCancel } from "react-icons/md";
 
 const OrderDatePicker = () => {
 
-    const { searchQuery, selectDate, setSelectDate, tampOrdersList, setOrderList } = useOrderStore();
-
-    // useEffect(() => {
-    //     if (selectDate) {
-    //         const filtered = tampOrdersList.filter(order => {
-    //             const orderDate = new Date(order?.createdAt?.$date);
-    //             return orderDate?.toDateString() === selectDate?.toDateString();
-    //         });
-
-    //         setOrderList(filtered);
-    //     } else {
-    //         setOrderList(tampOrdersList);
-    //     }
-    // }, [selectDate]);
-
+    const { searchQuery, selectDate,setCurrentPage, setSelectDate, tampOrdersList, setOrderList } = useOrderStore();
 
     useEffect(() => {
+        setCurrentPage(1);
         let filtered = tampOrdersList;
 
         if (selectDate) {
