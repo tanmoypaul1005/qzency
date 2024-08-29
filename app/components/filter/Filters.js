@@ -8,7 +8,7 @@ import { useOrderStore } from '@/store/ordersStore';
 
 const Filters = () => {
 
-    const {selectDate,searchQuery,tampOrdersList, selectFilter,setSelectFilter,ordersList, setOrderList } = useOrderStore();
+    const {selectDate,searchQuery,setCurrentPage,tampOrdersList, selectFilter,setSelectFilter,ordersList, setOrderList } = useOrderStore();
 
     // Initialize state with an empty array to prevent mismatches
     const [filters, setFilters] = useState([
@@ -91,6 +91,7 @@ const Filters = () => {
 
     const handleFilterClick = (label) => {
         setSelectFilter(label);
+        setCurrentPage(1);
         // Filter the orders based on the selected filter
         if ( label === 'All orders') {
             if(searchQuery){

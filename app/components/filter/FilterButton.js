@@ -74,7 +74,8 @@ const FilterButton = () => {
         setOrderList(filteredOrders);setSelectDate
         setSelectDate(null);
         setSelectFilter(null)
-        setSearchQuery("")
+        setSearchQuery("");
+        setCurrentPage(1);
         setIsOpen(false);
     };
 

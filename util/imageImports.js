@@ -9,3 +9,4 @@ export { default as iHelp } from "../public/icon/help.svg";
 export { default as iCalender } from "../public/icon/calender.svg";
 export { default as iArrowRight } from "../public/icon/ArrowRight.svg";
 export { default as iArrowLeft } from "../public/icon/ArrowLeft.svg";
+export { default as iCompany } from "../public/icon/building.png";

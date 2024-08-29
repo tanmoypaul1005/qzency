@@ -4,6 +4,9 @@ import orders from "../data/orders.json"
 
 export const useOrderStore = create((set) => ({
 
+    currentPage:1,
+    setCurrentPage: (value) => set({ currentPage: value }),
+
     searchQuery:"",
     setSearchQuery: (value) => set({ searchQuery: value }),
 
